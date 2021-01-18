@@ -1,0 +1,96 @@
+html, body , .container-fluid{
+  height: 100%;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.text-color{
+  color: #172b4d;
+}
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.left-content{
+  background-color: #f4f5f7;
+  max-height:100%;
+}
+.entity-name{
+  padding-top: 10px;
+}
+.padding-15 {
+  padding: 15px;
+}
+
+input[type=text] {
+  width: 50%;
+  box-sizing: border-box;
+  height: 40px;
+}
+
+li:nth-child(odd) { 
+  background-color: #f1f9fb;
+  
+}
+
+#comment-table .table, #comment-table .table th, #comment-table .table td{
+  font-size: 12px;
+  padding: 5px;
+}
+
+.my-auto {
+  margin-top: auto;
+margin-bottom: auto;
+}
+.mrg-200{
+  margin-top: 200px;
+}
+
+.comment-data {
+  margin-top: 15px;
+}
+
+.clear-button {
+  height: 30px;
+  padding: 5px 20px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+
+table.list-table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+  margin:50px;
+}
+
+.list-table td, .list-table th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.list-table tr:nth-child(even) {
+  /* background-color: #dddddd; */
+}
+
+table.list-table td, table.list-group th {
+  text-align: left;
+}
+
+table.list-table td:nth-child(1),table.list-table th:nth-child(1) {
+width:20%
+}
+
+table.list-table td:nth-child(2) , table.list-table th:nth-child(2) {
+  width:50%
+}
+
+table.list-table td:nth-child(3),table.list-table th:nth-child(3)  {
+  width:30%
+}
