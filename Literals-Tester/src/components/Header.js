@@ -3,7 +3,7 @@ import React from 'react'
 function Header() {
     return (
         <nav className="navbar navbar-dark bg-dark">
-            <div className="navbar-brand">KBC - Angular Migration - Literal Tester</div> 
+            <div className="navbar-brand">Literal Tester/Extractor Tool</div> 
         </nav>
     )
 }
