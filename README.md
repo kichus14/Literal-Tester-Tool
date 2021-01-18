@@ -2,7 +2,7 @@
 Provide the list of comments given by the tech lead
 
 # Literal-Tester-Tool
-It will extract the literal from bitbucket Repo and commpare it with baseline excel
+It will extract the literal from bitbucket Repo and compare it with baseline excel
 
 ## Getting started
 1. Copy config from content provided in mail.
