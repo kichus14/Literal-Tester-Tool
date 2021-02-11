@@ -54,7 +54,6 @@ function LiteralTester() {
     useEffect(() => {
         setLoading(true);
         getProjectList();
-        
     }, []);
 
     useEffect(() => {
@@ -109,6 +108,7 @@ function LiteralTester() {
             responseAllLangXML.forEach(function(langXML){
                 const xmlDOM = new DOMParser().parseFromString(langXML.data, 'text/xml');
                 const langConfig = JSON.parse(langXML.config.data);
+                console.log(xmlDOM);
                 const resultParsed = xmlToJson(xmlDOM);
                 switch(langConfig.lang) {
                     case 'en':
@@ -240,10 +240,14 @@ function LiteralTester() {
     function execturTest() {
         let finalData = [];
         let tableColumn = tableConfig;
-        for (const [key, value] of Object.entries(selectedXML)) {
-            finalData = testRunner(selectedXML[key], key);
-            tableColumn.push(key+'-status');
-          }
+        //for (const [key, value] of Object.entries(selectedXML)) {
+
+        selectedLang.forEach(function (language) {    
+            finalData = testRunner(selectedXML[language.key], language.key);
+            tableColumn.push(language.key+'-status');
+        });
+        //}
+        debugger;
           setTableHeader(tableColumn);
           setResultData(finalData);
     }
@@ -260,11 +264,24 @@ function LiteralTester() {
     function testRunner(curentLangXML, lang) {
         let result = [], passItem = 0, failItem = 0;
         let allPass = true;
+        //debugger;
+        console.log(curentLangXML);
         spreedSheetData.forEach(spreedSheetRowData => {
-            const XMLRowVal = curentLangXML.filter(item => item['@attributes'].id == spreedSheetRowData.id)[0];
+            //const XMLRowVal = curentLangXML.filter(item => item['@attributes'].id == spreedSheetRowData.id)[0];
+            const XMLRowVal = curentLangXML.filter(function(item) { 
+                // if((spreedSheetRowData.id == item['@attributes'].id)) {
+                //     debugger;
+                //     if(lang == "fr"){
+                //         debugger;
+                //     }
+                // }
+                //console.log(item);
+                //console.log(item['@attributes'].id, lang);
+                return item['@attributes'].id == spreedSheetRowData.id;
+            })[0];
 
             let excelText = typeof spreedSheetRowData[lang] == 'string' ? spreedSheetRowData[lang].trim() : spreedSheetRowData[lang];
-            let xmlText = undefined;
+            let xmlText = "";
             if (XMLRowVal && XMLRowVal.target) {
                 if(typeof (XMLRowVal.target) == 'string') {
                     xmlText = XMLRowVal.target.trim();
@@ -283,20 +300,25 @@ function LiteralTester() {
                     spreedSheetRowData[`${lang}-status`] = "Pass";
                     passItem++;
                 } else {
-                    xmlText = xmlText.replace(/"/g, '');
-                    excelText = excelText.replace(/"/g, '');
+                    xmlText = (typeof(xmlText) == "string") ? xmlText.replace(/"/g, '') : xmlText;
+                    excelText = (typeof(excelText) == "string") ? excelText.replace(/"/g, '') : excelText;
                     spreedSheetRowData[`${lang}`] = excelText;
                     spreedSheetRowData[`${lang}-expected-result`] = xmlText;
                     spreedSheetRowData[`${lang}-status`] = "Fail";
                     allPass = false;
                     failItem++;
                 }
-                // if(spreedSheetRowData.id == 'az0-individualLifeInsurance-optimiseLifePension-overview-contact') {
+                //  if(spreedSheetRowData.id == 'g60-smallInsuranceProducts-productInfo-calculate-your-premium') {
                 //     debugger;
-                // }
-                spreedSheetRowData = cleanObject(spreedSheetRowData);
-                result.push(spreedSheetRowData);
-            } 
+                //  }
+                //spreedSheetRowData = cleanObject(spreedSheetRowData);
+                //result.push(spreedSheetRowData);
+            } else {
+                //debugger;
+                spreedSheetRowData[`${lang}-expected-result`] = xmlText;
+                spreedSheetRowData[`${lang}-status`] = "Fail";
+            }
+            result.push(spreedSheetRowData);
             
         });
         //resultOverview.push({lang, passCount: passItem, failCount: failItem});

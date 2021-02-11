@@ -164,6 +164,10 @@ table.list-table td:nth-child(3),table.list-table th:nth-child(3)  {
   transform: translate3d(2px, 2px, 0);
 }
 
+.floatleft {
+  float: left;
+}
+
 .form-switch:active input:checked + i::after { transform: translate3d(16px, 2px, 0); }
 
 .form-switch input { display: none; }
